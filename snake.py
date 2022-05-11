@@ -17,6 +17,14 @@ food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 count = 0
+colors = ['blue','green','cyan','orange','black']
+colorsnake = randrange(0,4)
+colorfruit = randrange(0,4)
+while True:
+    if colorsnake==colorfruit:
+        colorfruit = randrange(0,4)
+    else:
+        break
 
 def change(x, y):
     """Change snake direction."""
@@ -32,6 +40,9 @@ def inside(head):
 def move():
     global count
     count= count+1
+    global colors
+    global colorsnake
+    global colorfruit
     """Move snake forward one segment."""
     head = snake[-1].copy()
     head.move(aim)
@@ -49,12 +60,12 @@ def move():
         food.y = randrange(-15, 15) * 10
     else:
         snake.pop(0)
-        if inside(food):
-            if count==20:
-                food.x = food.x + (randrange(-5,5)*10)
-                food.y = food.y + (randrange(-5,5)*10)
+        if inside(food):#checar si la comida está adentro del espacio
+            if count==20:#cada 20 pasos va a cambiar de posición la comida
+                food.x = food.x + (randrange(-1,1)*10)#cambiar en un rango x de -1 a 1
+                food.y = food.y + (randrange(-1,1)*10)#cambiar en un rango y de -1 a 1
                 count=0
-        else:
+        else:#Si está afuera 
             food.x = randrange(-15, 15) * 10
             food.y = randrange(-15, 15) * 10
 
@@ -62,10 +73,10 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, colors[colorsnake])
 
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, colors[colorfruit])
     update()
     ontimer(move, 100)
 
