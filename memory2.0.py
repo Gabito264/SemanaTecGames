@@ -15,11 +15,10 @@ from turtle import *
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+tiles = ["♞","☺","☢","💯","☣","❄","♫","¥","¢","Ξ","ξ","τ","ρ","α","O","Φ","θ","π","λ","Σ","Ψ","Ω","δ","X","ε","β","$","Δ","%","!","=","?"] * 2
 state = {'mark': None}
 hide = [True] * 64
-contador = 0
-contador2 = 0
+
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -46,13 +45,6 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
-    global contador
-    contador +=1
-    print("taps hechos")
-    print(contador)
-
-    global contador2
-
     spot = index(x, y)
     mark = state['mark']
 
@@ -62,10 +54,6 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
-        contador2 +=1
-        if contador2 == 32:
-            print("Puzzle completado!")
-    
 
 
 def draw():
@@ -85,14 +73,9 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        if tiles[mark] >= 10:
-            goto(x + 4, y+3)
-            color('black')
-            write(tiles[mark], font=('Arial', 30, 'normal'))
-        else:
-            goto(x + 15, y+3)
-            color('black')
-            write(tiles[mark], font=('Arial', 30, 'normal'))
+        goto(x + 2, y)
+        color('black')
+        write(tiles[mark], font=('Arial', 30, 'normal'))
 
     update()
     ontimer(draw, 100)
