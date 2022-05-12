@@ -19,7 +19,7 @@ tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
 contador = 0
-
+contador2 = 0
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
     up()
@@ -45,6 +45,13 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
+    global contador
+    contador +=1
+    print("taps hechos")
+    print(contador)
+
+    global contador2
+
     spot = index(x, y)
     mark = state['mark']
 
@@ -54,10 +61,9 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
-    global contador
-    contador +=1
-    print("taps hecho")
-    print(contador)
+        contador2 +=1
+        if contador2 == 32:
+            print("Puzzle completado!")
     
 
 
