@@ -9,7 +9,7 @@ place = [vector(-210,50), vector(180,0), vector(0,180)]
 score = 0
 n = [100,200,300]
 target = vector(-210,50)
-#dibujar el jugador
+#dibujar el escenario, jugador y target
 def draw():
     square(player.x,player.y,15,'black')
     drawPlatform()
@@ -40,9 +40,11 @@ def fall():
         player.y-=5
         draw()
     ontimer(fall, 50)
-#Dibujar el límite del jugador
+
+#Dibujar la arena de combate
 def drawPlatform():
     square(-250,-500,500,'grey')
+
 #mostrar un disparo hacia la derecha
 def shootRight():
     clear()
@@ -53,6 +55,7 @@ def shootRight():
 
     ontimer(bulletClear, 100)
     checkKill()
+
 #mostrar disparo hacia la izquierda
 def shootLeft():
     clear()
@@ -64,6 +67,7 @@ def shootLeft():
     ontimer(bulletClear, 100)
     checkKill()
 
+#mostrar un disparo para arriba
 def shootUp():
     clear()
     draw()
@@ -73,7 +77,8 @@ def shootUp():
 
     ontimer(bulletClear, 100)
     checkKill()
-#seleccionador de hacia dónde dispara el jugador
+
+#seleccionador hacia dónde dispara el jugador dependiendo de las arrowkeys
 def getshot(n):
     bullet.x = player.x+7
     bullet.y = player.y+7
@@ -83,11 +88,12 @@ def getshot(n):
         shootLeft()
     if n == 3:
         shootUp()
+
 #borrar disparo
 def bulletClear():
     clear()
     draw()
-
+#checar si el jugador le dió al objetivo, para aumentar el score
 def checkKill():
     global score
     if target == place[0] and bullet.x == -210 and bullet.y >target.y-15 and bullet.y <target.y+15:
@@ -105,6 +111,8 @@ def checkKill():
         score+=1
         print("score")
         print(score)
+
+#dibujar el target, que cambia de lugar cada cierto movimiento del jugador
 def spawnTarget():
     global count
     global target
@@ -123,7 +131,7 @@ def spawnTarget():
     square(target.x,target.y,30,'green')
 
 
-
+#Datos para iniciar turtle
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
